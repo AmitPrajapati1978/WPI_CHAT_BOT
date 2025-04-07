@@ -30,7 +30,7 @@ graph TD
     D[User Query] --> E[Retrieve top K Chunks from FAISS]
     E --> F[Format Prompt with Context]
     F --> G[Groq API - LLaMA3]
-    G --> H[Answer in Streamlit App]
+    G --> H[Answer in Streamlit App]```
 ---
 
 ## 📄 Model Evaluation Report
