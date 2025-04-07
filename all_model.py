@@ -179,13 +179,13 @@ if "messages" not in st.session_state:
 # 🔽 Model selector
 model_options = [
     "Groq (LLaMA3)",
-    "Gemma-2B",
-    "TinyLLaMA",
-    "Falcon-1B",
-    "Phi-1.5",
-    "DistilGPT2",
-    "Tiny GPT-2",
-    "GPT-Neo 125M"
+    # "Gemma-2B",
+    # "TinyLLaMA",
+    # "Falcon-1B",
+    # "Phi-1.5",
+    # "DistilGPT2",
+    # "Tiny GPT-2",
+    # "GPT-Neo 125M"
 ]
 
 
@@ -196,10 +196,10 @@ selected_model = st.selectbox("Choose model to answer:", model_options)
 # Model path mapping
 local_model_map = {
     "Gemma-2B": "local_models/gemma-2b",
-    "TinyLLaMA": "local_models/tinyllama-1b",
-    "Falcon-1B": "local_models/falcon-rw-1b",
-    "DistilGPT2": "local_models/distilgpt2",
-    "Tiny GPT-2": "local_models/tiny-gpt2",
+    # "TinyLLaMA": "local_models/tinyllama-1b",
+    # "Falcon-1B": "local_models/falcon-rw-1b",
+    # "DistilGPT2": "local_models/distilgpt2",
+    # "Tiny GPT-2": "local_models/tiny-gpt2",
 }
 
 
