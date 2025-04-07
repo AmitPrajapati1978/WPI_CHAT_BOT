@@ -1,17 +1,14 @@
 import streamlit as st
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import json
 import os
 import requests
-
 import base64
 
 # ---------------------------
-# Background Image (Gompei 🐐)
+# Background Image
 # ---------------------------
 def set_background(image_path):
     with open(image_path, "rb") as image_file:
@@ -64,42 +61,6 @@ def set_background(image_path):
     )
 
 set_background("assest/DSC_4712_PRINT.jpg")
-
-
-
-# ---------------------------
-# Custom WPI Theme CSS
-# ---------------------------
-# st.markdown(
-#     """
-#     <style>
-#     .stApp {
-#         background-color: #f9f9f9;
-#         background-image: url('https://www.wpi.edu/sites/default/files/styles/hero_mobile/public/2022-03/campus_hero.jpg');
-#         background-size: cover;
-#     }
-#     .header-title {
-#         font-family: 'Arial', sans-serif;
-#         font-size: 3em;
-#         color: #800000;
-#         text-align: center;
-#     }
-#     .scrollable-chat {
-#         max-height: 400px;
-#         overflow-y: auto;
-#         padding-right: 10px;
-#     }
-#     .chat-message {
-#         font-family: 'Courier New', monospace;
-#         padding: 10px;
-#         border-radius: 5px;
-#         background-color: rgba(255, 255, 255, 0.8);
-#         margin: 5px 0;
-#     }
-#     </style>
-#     """,
-#     unsafe_allow_html=True
-# )
 
 # ---------------------------
 # App Header
@@ -175,68 +136,13 @@ chat_container = st.container()
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-# 🔽 Model selector
-# 🔽 Model selector
-model_options = [
-    "Groq (LLaMA3)",
-    # "Gemma-2B",
-    # "TinyLLaMA",
-    # "Falcon-1B",
-    # "Phi-1.5",
-    # "DistilGPT2",
-    # "Tiny GPT-2",
-    # "GPT-Neo 125M"
-]
-
-
-
-selected_model = st.selectbox("Choose model to answer:", model_options)
-
-# Model path mapping
-# Model path mapping
-local_model_map = {
-    "Gemma-2B": "local_models/gemma-2b",
-    # "TinyLLaMA": "local_models/tinyllama-1b",
-    # "Falcon-1B": "local_models/falcon-rw-1b",
-    # "DistilGPT2": "local_models/distilgpt2",
-    # "Tiny GPT-2": "local_models/tiny-gpt2",
-}
-
-
-# Button Callback
-# @st.cache_resource(show_spinner=False)
-@st.cache_resource(show_spinner=False)
-def get_model_pipeline(model_path):
-    from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-
-    try:
-        # Try loading with trust_remote_code (works for custom models like Falcon)
-        model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
-    except TypeError:
-        # If model doesn't need trust_remote_code
-        model = AutoModelForCausalLM.from_pretrained(model_path)
-
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-
-    return pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=100)
-
-def ask_model(model_pipe, query, context_chunks):
-    prompt = format_prompt(query, "\n".join(context_chunks))
-    full_response = model_pipe(prompt)[0]["generated_text"]
-    return full_response.replace(prompt, "").strip()
-
 def send_message():
     user_input = st.session_state.user_input
     if user_input:
         context_chunks = retrieve_top_k(user_input, k=3)
-        if selected_model == "Groq (LLaMA3)":
-            answer = ask_groq(user_input, context_chunks)
-        else:
-            model_path = local_model_map[selected_model]
-            pipe = get_model_pipeline(model_path)
-            answer = ask_model(pipe, user_input, context_chunks)
+        answer = ask_groq(user_input, context_chunks)
         st.session_state["messages"].append({"role": "You", "content": user_input})
-        st.session_state["messages"].append({"role": selected_model, "content": answer, "context": context_chunks})
+        st.session_state["messages"].append({"role": "Groq (LLaMA3)", "content": answer, "context": context_chunks})
         st.session_state.user_input = ""
 
 # Show Chat
