@@ -1,53 +1,37 @@
-# 🧠 WPIBot Architecture
+# 🐐 Gompei the Goat - Your Campus Chatbot
 
-## Overview
-WPIBot is a campus assistant chatbot built using Retrieval-Augmented Generation (RAG) to answer queries related to Worcester Polytechnic Institute (WPI). It is deployed via Streamlit and utilizes both local and cloud-based LLMs.
+A personalized, RAG-powered chatbot that answers questions related to Worcester Polytechnic Institute (WPI) by retrieving real context and generating intelligent responses using the **Groq LLaMA3 API**.
 
----
-
-## 🏗️ Architecture Components
-
-### 1. 🗃️ Data Ingestion
-- WPI-related webpage (PDFs, HTML, etc.)
-- Processed and chunked into smaller passages
-- Embedded using `sentence-transformers` (`all-MiniLM-L6-v2`)
-
-### 2. 🧠 Vector Store
-- **FAISS** used to store and index document embeddings
-- Supports fast retrieval using vector similarity search
-
-### 3. 📚 RAG Pipeline
-- **Query Input** → Embed the query
-- **Retriever** → Fetch top-k relevant chunks from FAISS
-- **LLM Generator** → Generate a response using:
-  - Groq-hosted models (e.g., `LLaMA-3-70B`, `Mixtral-8x7B`)
-  - Local models (via Ollama; e.g., `Mistral-7B`, `Gemma`, `TinyLLaMA`)
-
-### 4. 🖥️ Frontend
-- Built with **Streamlit**
-- UI allows:
-  - Asking questions
-  - Viewing retrieved chunks
-  - Comparing responses across models
-
-### 5. ☁️ Deployment
-- **Primary**: Streamlit Cloud
-- **Optional Scale-up**: AWS (for Groq API keys, local model hosting)
+![WPI Banner](assest/DSC_4712_PRINT.jpg)
 
 ---
 
-## 🔧 Optional Evaluation
-- **BERTScore** for semantic similarity of answers
-- **Latency comparison** between Groq and local models
+## 🚀 Features
+
+- 🔎 Context-aware search using FAISS vector store  
+- 🧠 Real-time semantic retrieval using Sentence-BERT embeddings  
+- 🤖 Natural-sounding answers powered by Groq's blazing-fast LLaMA 3 (70B)  
+- 💬 Responsive, scrollable Streamlit interface  
+- 🎓 Campus-themed look with WPI’s signature red  
+- 🔧 Easy to deploy on EC2 or Streamlit Cloud  
 
 ---
 
-## 🔄 Workflow
+## 🧱 Architecture Overview
+
+🕸️ Web Crawler → 🧠 Embeddings → 📦 FAISS → ⚡ Groq API → 💬 Answer
+
+> ⚠️ **Note:** GitHub doesn't render Mermaid diagrams unless you're using GitHub Enterprise or Codespaces.  
+> You can copy the code below into [Mermaid Live Editor](https://mermaid.live/edit) to visualize it.
+
+<details>
+<summary>Click to view Mermaid diagram code</summary>
 
 ```mermaid
 graph TD
-    A[User Query] --> B[Embed Query]
-    B --> C[Retrieve Top-k Chunks from FAISS]
-    C --> D[Pass Context + Query to LLM]
-    D --> E[Generate Response]
-    E --> F[Streamlit UI]
+    A[Web Crawler] -->|Scrapes WPI content| B[Sentence-BERT Embeddings]
+    B --> C[FAISS Index]
+    D[User Query] --> E[Retrieve top K Chunks from FAISS]
+    E --> F[Format Prompt with Context]
+    F --> G[Groq API - LLaMA3]
+    G --> H[Answer in Streamlit App]
