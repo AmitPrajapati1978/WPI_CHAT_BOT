@@ -7,7 +7,7 @@
  ---
  ## 📊 Model Evaluation Report
 
-👉 [Click here to view the PDF](https://amitprajapati1978.github.io/WPI_CHAT_BOT/MODEL_EVAL.pdf)
+👉 [Click here to view the PDF](https://amitprajapati1978.github.io/WPI_CHAT_BOT/MODELLING.pdf)
 
  ---
  ## 🚀 Features
