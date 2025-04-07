@@ -27,3 +27,9 @@ graph TD
     E --> F[🧾 Format Prompt with Context]
     F --> G[⚡ Groq API - LLaMA3]
     G --> H[💬 Answer in Streamlit App]
+
+## 📄 Model Evaluation Report
+
+You can view the detailed model evaluation (with charts, performance metrics, and analysis) here:
+
+👉 [MODEL_EVAL.pdf](./MODEL_EVAL.pdf)
