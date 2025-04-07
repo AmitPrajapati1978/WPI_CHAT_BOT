@@ -5,7 +5,11 @@
  ![WPI Banner](assest/DSC_4712_PRINT.jpg)
  
  ---
- 
+ ## 📊 Model Evaluation Report
+
+👉 [Click here to view the PDF](https://amitprajapati1978.github.io/WPI_CHAT_BOT/MODEL_EVAL.pdf)
+
+ ---
  ## 🚀 Features
  
  - 🔎 Context-aware search using FAISS vector store
