@@ -19,17 +19,16 @@ A personalized, RAG-powered chatbot that answers questions related to Worcester 
 
 ## 🧱 Architecture Overview
 
+
+**Pipeline Flow**:  
+🕸️ Web Crawler → 🧠 Embeddings → 📦 FAISS → ⚡ Groq API → 💬 Answer
+
 ```mermaid
 graph TD
-    A[🕸️ Web Crawler] -->|Scrapes WPI content| B[🧠 Sentence-BERT Embeddings]
-    B --> C[📦 FAISS Index]
-    D[👤 User Query] --> E[🔍 Retrieve top K Chunks from FAISS]
-    E --> F[🧾 Format Prompt with Context]
-    F --> G[⚡ Groq API - LLaMA3]
-    G --> H[💬 Answer in Streamlit App]
+    A[Web Crawler] -->|Scrapes WPI content| B[Sentence-BERT Embeddings]
+    B --> C[FAISS Index]
+    D[User Query] --> E[Retrieve top K Chunks from FAISS]
+    E --> F[Format Prompt with Context]
+    F --> G[Groq API - LLaMA3]
+    G --> H[Answer in Streamlit App]
 
-## 📄 Model Evaluation Report
-
-You can view the detailed model evaluation (with charts, performance metrics, and analysis) here:
-
-👉 [MODEL_EVAL.pdf](./MODEL_EVAL.pdf)
