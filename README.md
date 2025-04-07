@@ -31,11 +31,5 @@ graph TD
     E --> F[Format Prompt with Context]
     F --> G[Groq API - LLaMA3]
     G --> H[Answer in Streamlit App]```
----
 
-## 📄 Model Evaluation Report
-
-📑 Click below to view the full evaluation report:
-
-👉 [MODEL_EVAL.pdf](./MODEL_EVAL.pdf)
 
